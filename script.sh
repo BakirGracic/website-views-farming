@@ -1,81 +1,77 @@
 #!/bin/bash
 
-# check for Internet
-if ! ping -c 1 -W 2 -q www.google.com > /dev/null 2>&1; then
+# Exit on any error
+set -e
+
+# Check for Internet by pinging Google's DNS
+if ! ping -c 1 -W 2 -q 8.8.8.8 > /dev/null 2>&1; then
   printf "There appears to be no Internet connection. Exiting...\n" >&2
   exit 1
 fi
 
-# verify curl and dig are installed on system
-if ! command -v curl 1> /dev/null; then
-  printf "'curl' must be installed on your system. Exiting...\n" 1>&2
-  exit 1
-fi
-if ! command -v dig 1> /dev/null; then
-  printf "'dig', part of the 'dnsutils' package, must be installed on your system. Exiting...\n" 1>&2
+# Verify curl is installed on system
+if ! command -v curl &> /dev/null; then
+  printf "'curl' must be installed on your system. Exiting...\n" >&2
   exit 1
 fi
 
-# Function to validate the URL
-validate_url(){
-  if [[ $1 =~ ^http(s)?://[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}(/.*)?$ ]]; then
-    echo "true"
+# URL validation via regex function
+validate_url() {
+  local url=$1
+  local regex='^(https?://)?([a-z0-9-]+\.)*[a-z0-9-]+\.[a-z]{2,}(/.*)?$'
+  [[ $url =~ $regex ]]
+}
+
+# Number of repetitions validation function
+validate_repetitions() {
+  local repetitions=$1
+  if [[ $repetitions =~ ^[0-9]+$ ]] && [ $repetitions -le 100000 ]; then
+    return 0
   else
-    echo "false"
+    return 1
   fi
 }
 
-# Function to validate the number of repetitions
-validate_repetitions(){
-  if [[ $1 =~ ^[0-9]+$ ]] && [ $1 -le 100000 ]; then
-    echo "true"
+# Delay validation function
+validate_delay() {
+  local delay=$1
+  if [[ $delay =~ ^[0-9]+$ ]] && [ $delay -ge 1 ]; then
+    return 0
   else
-    echo "false"
+    return 1
   fi
 }
 
-# Function to validate the delay
-validate_delay(){
-  if [[ $1 =~ ^[0-9]+$ ]] && [ $1 -ge 1 ]; then
-    echo "true"
-  else
-    echo "false"
-  fi
-}
-
-# Prompt user for the website URL
+# Prompt for website URL
 read -p "Enter the website URL: " URL
-
-# Validate the URL
-if [ $(validate_url $URL) == "false" ]; then
-  echo "Invalid URL. Please enter a valid URL starting with http:// or https://"
+if ! validate_url "$URL"; then
+  echo "Invalid URL. Please enter a valid URL."
   exit 1
 fi
 
-# Prompt user for the number of repetitions
+# Prompt for number of repetitions
 read -p "Enter the number of repetitions (up to 100000): " REPETITIONS
-
-# Validate the number of repetitions
-if [ $(validate_repetitions $REPETITIONS) == "false" ]; then
+if ! validate_repetitions "$REPETITIONS"; then
   echo "Invalid number of repetitions. Please enter a number up to 100000."
   exit 1
 fi
 
-# Prompt user for the delay between visits
+# Prompt for delay
 read -p "Enter the delay between visits in seconds (minimum 1 second): " DELAY
-
-# Validate the delay
-if [ $(validate_delay $DELAY) == "false" ]; then
+if ! validate_delay "$DELAY"; then
   echo "Invalid delay. Please enter a number greater than or equal to 1."
   exit 1
 fi
 
-# Loop to visit the website the specified number of times with the specified delay
+# Main loop
 for (( i=1; i<=REPETITIONS; i++ ))
 do
-  curl $URL > /dev/null 2>&1
-  echo "Visited $URL - Count: $i"
-  sleep $DELAY
+  if curl -s -o /dev/null -f "$URL"; then
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - Visited $URL - Count: $i"
+  else
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - Failed to visit $URL - Count: $i"
+  fi
+  sleep "$DELAY"
 done
 
 echo "Completed visiting $URL for $REPETITIONS times with a delay of $DELAY seconds."
