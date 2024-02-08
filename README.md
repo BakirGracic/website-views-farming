@@ -6,10 +6,10 @@ I made this script to farm views on websites
 ### How-to
 
 - clone this GitHub repository via<br />
-`git clone XXX`
+`git clone https://github.com/BakirGracic/simple-website-views-farming-script.git`
 
 - 'cd' into the repo directory<br />
-`cd XXX`
+`cd simple-website-views-farming-script`
 
 - add execution permission (root or sudo perm needed)<br />
 `sudo chmod +x script.sh`
