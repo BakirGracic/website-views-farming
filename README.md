@@ -3,7 +3,7 @@
 ### Features
 
 - Checks for internet connection
-- Checks for needed packages (parallel and curl)
+- Checks for needed packages
 - Continuously requests website using curl
 - Visits website in 1 to 10 parallel processes (for faster execution)
 - Suitable for lower-end systems
