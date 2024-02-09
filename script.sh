@@ -52,6 +52,12 @@ if ! command -v parallel &> /dev/null; then
   exit 1
 fi
 
+# Verify bc is installed on the system
+if ! command -v bc &> /dev/null; then
+  echo "'bc' is not installed. Please install it to proceed."
+  exit 1
+fi
+
 # URL validation via regex function
 validate_url() {
   local url=$1
