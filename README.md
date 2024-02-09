@@ -1,11 +1,20 @@
 # Simple Website Visit Farming Bash Script
 
-This shell script visits a URL via `curl` command<br />
-I made this script to farm views on websites
+### Features
+
+- Checks for internet connection
+- Checks for needed packages (parallel and curl)
+- Continuously requests website using curl
+- Visits website in 1 to 10 parallel processes (for faster execution)
+- By default limited to 1 second delay and max 10 parallel processes
+- curl requests are randomized with rotation of User-Agent and other headers
+- curl doesn't store session or cookies (filters non-IP rate limiting mechanisms)
+- Intended to farm views on websites (like GItHub,...)
+- This is not a DDoS program! Don't use it as such!
 
 ### How-to
 
-- clone this GitHub repository via<br />
+- clone this GitHub repository<br />
 `git clone https://github.com/BakirGracic/simple-website-views-farming-script.git`
 
 - 'cd' into the repo directory<br />
@@ -21,12 +30,11 @@ I made this script to farm views on websites
 
 ### Possible improvements
 
-- use a changing proxy to occasionally change requesting IP adress to make vistis more natural and to avoid rate limiting on certain systems
-- feel free change and fine-tune this script to suit your needs
+- implement in-script changing proxy to peroodically change requesting IP address to make vistis more natural and to avoid rate limiting on certain systems
 - make .bat (Windows compatible) version
 
 ### Recommended use
 - spin up a VPS, do 'How-to' steps, and leave the script running
-- you can also do it on your own linux-flavoured machine
+- you can also do it directly on your own linux-flavoured machine
 
 ### Make sure to use this script legally and lawfully and at your own risk!
