@@ -6,11 +6,21 @@
 - Checks for needed packages (parallel and curl)
 - Continuously requests website using curl
 - Visits website in 1 to 10 parallel processes (for faster execution)
+- Suitable for lower-end systems
 - By default limited to 1 second delay and max 10 parallel processes
 - curl requests are randomized with rotation of User-Agent and other headers
 - curl doesn't store session or cookies (filters non-IP rate limiting mechanisms)
 - Intended to farm views on websites (like GItHub,...)
 - This is not a DDoS program! Don't use it as such!
+
+### Necessary packages
+
+Install them by using appropriate command of your linux distro/flavour<br />
+Example: `sudo apt-get install parallel`
+
+- curl
+- parallel
+- bc
 
 ### How-to
 
