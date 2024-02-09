@@ -135,7 +135,7 @@ visit_site() {
   curl -s "$URL" -A "$USER_AGENT" -H "$CUSTOM_HEADER" -o /dev/null
   RESULT=$?
   if [ $RESULT -eq 0 ]; then
-    echo "$(date "+%Y-%m-%d %H:%M:%S") - Visited $URL with User-Agent: $USER_AGENT - Count: $1"
+    echo "$(date "+%Y-%m-%d %H:%M:%S") - Visited $URL | Count: $1 | User-Agent: $USER_AGENT "
   else
     echo "$(date "+%Y-%m-%d %H:%M:%S") - Failed to visit $URL - Count: $1"
   fi
