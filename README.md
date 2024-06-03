@@ -1,4 +1,4 @@
-# Simple Website Visit Farming Bash Script
+# Simple Website Views Farming Bash Script
 
 ### Features
 
@@ -25,10 +25,10 @@ Example: `sudo apt-get install parallel`
 ### How-to
 
 - clone this GitHub repository<br />
-`git clone https://github.com/BakirGracic/simple-website-views-farming-script.git`
+`git clone https://github.com/BakirGracic/website-views-farming.git`
 
 - 'cd' into the repo directory<br />
-`cd simple-website-views-farming-script`
+`cd website-views-farming`
 
 - add execution permission (root or sudo perm needed)<br />
 `sudo chmod +x script.sh`
