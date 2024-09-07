@@ -4,23 +4,22 @@
 
 - Checks for internet connection
 - Checks for needed packages
-- Continuously requests website using curl
-- Visits website in 1 to 10 parallel processes (for faster execution)
+- Continuously requests website using `curl`
+- Visits website in 1 to 10 parallel processes
 - Suitable for lower-end systems
 - By default limited to 1 second delay and max 10 parallel processes
-- curl requests are randomized with rotation of User-Agent and other headers
-- curl doesn't store session or cookies (filters non-IP rate limiting mechanisms)
-- Intended to farm views on websites (like GItHub,...)
+- `curl` requests are randomized with rotation of `User-Agent` and other headers
+- `curl` doesn't store session or cookies (this filters non-IP rate limiting mechanisms)
+- Intended to farm views on websites
 - This is not a DDoS program! Don't use it as such!
 
 ### Necessary packages
 
-Install them by using appropriate command of your linux distro/flavour<br />
-Example: `sudo apt-get install parallel`
+- `curl`
+- `parallel`
+- `bc`
 
-- curl
-- parallel
-- bc
+You can install them all using (for Debian): `sudo apt-get install curl parallel bc`
 
 ### How-to
 
@@ -30,21 +29,14 @@ Example: `sudo apt-get install parallel`
 - 'cd' into the repo directory<br />
 `cd website-views-farming`
 
-- add execution permission (root or sudo perm needed)<br />
+- add execution permissions<br />
 `sudo chmod +x script.sh`
 
-- execute the script<br />
+- execute/start the script<br />
 `./script.sh`
 
 - input script variables best suiting your needs
 
-### Possible improvements
-
-- implement in-script changing proxy to peroodically change requesting IP address to make vistis more natural and to avoid rate limiting on certain systems
-- make .bat (Windows compatible) version
-
-### Recommended use
-- spin up a VPS, do 'How-to' steps, and leave the script running
-- you can also do it directly on your own linux-flavoured machine
+<hr />
 
 ### Make sure to use this script legally and lawfully and at your own risk!
